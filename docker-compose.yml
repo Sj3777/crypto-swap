@@ -1,0 +1,28 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: cryptoswap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: eie@vivek
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  db-data:
